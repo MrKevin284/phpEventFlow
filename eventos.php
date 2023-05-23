@@ -12,21 +12,49 @@
         <div class="logo_principal">
             <img src="assets/imagens/logo_fundo_removido.png" alt="Logo EventFlow">
         </div>
-    
+
+        <?php
+        // Incluir o arquivo de conexão com o banco de dados
+        require_once "conexao.php";
+
+        // Verificar se o usuário está logado
+        session_start();
+        if (!isset($_SESSION['idusuario'])) {
+            header("location: login.php");
+            exit();
+        }
+
+        // Obter informações do usuário logado
+        $idusuario = $_SESSION['idusuario'];
+        $query_usuario = "SELECT nome FROM usuario WHERE idusuario = $idusuario";
+        $resultado_usuario = mysqli_query($conexao, $query_usuario);
+        $row_usuario = mysqli_fetch_assoc($resultado_usuario);
+        $nome_usuario = $row_usuario['nome'];
+
+        // Verificar o tipo de usuário
+        $query_tipo_usuario = "SELECT tipo_user FROM usuario WHERE idusuario = $idusuario";
+        $resultado_tipo_usuario = mysqli_query($conexao, $query_tipo_usuario);
+        $row_tipo_usuario = mysqli_fetch_assoc($resultado_tipo_usuario);
+        $tipo_usuario = $row_tipo_usuario['tipo_user'];
+        ?>
+
         <nav class="botoes">
             <a href="principal_comum.php"> <label>Inicio</label></a>
             <a href="eventos.php"> <label>Eventos</label></a>
-            <a href="ingressos.php"> <label>Ingressos</label></a>
-            <a href="perfil.php"> <label>Perfil</label></a>       
+            <a href="perfil.php"> <label>Perfil</label></a>
+            
+            <?php
+            // Verificar se o usuário é empresarial para exibir o botão de subir evento
+            if ($tipo_usuario == 2) {
+                echo '<a href="criar_evento.php"> <label>Criar Evento</label></a>';
+            }
+            ?>
         </nav>
-        
+
         <div class="caixa">
             <h1 id="todos_os_eventos">Todos os Eventos</h1>
 
             <?php
-            // Incluir o arquivo de conexão com o banco de dados
-            require_once "conexao.php";
-
             // Consultar os eventos no banco de dados
             $consulta = "SELECT * FROM eventos";
             $resultado = mysqli_query($conexao, $consulta);
@@ -54,8 +82,13 @@
             // Fechar a conexão com o banco de dados
             mysqli_close($conexao);
             ?>
-    
+
         </div>
+    </div>
+
+    <div class="nome_usuario">
+        <p>Bem-vindo, <?php echo $nome_usuario; ?></p>
     </div>
 </body>
 </html>
+
