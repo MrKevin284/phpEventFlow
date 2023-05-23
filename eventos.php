@@ -41,6 +41,7 @@
         <nav class="botoes">
             <a href="eventos.php"> <label>Eventos</label></a>
             <a href="perfil.php"> <label>Perfil</label></a>
+            <a href="login.php"> <label>Logout</label></a>
             
             <?php
             // Verificar se o usuário é empresarial para exibir o botão de subir evento

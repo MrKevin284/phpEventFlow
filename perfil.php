@@ -1,29 +1,84 @@
+<?php
+include 'conexao.php';
+
+session_start();
+if (!isset($_SESSION['idusuario'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$idUsuario = $_SESSION['idusuario'];
+
+$query = "SELECT u.nome, u.cpf_cnpj, u.telefone, tu.id_funcao FROM usuario u
+          INNER JOIN tipo_usuario tu ON u.tipo_user = tu.id_funcao
+          WHERE u.idusuario = ?";
+$stmt = $conexao->prepare($query);
+$stmt->bind_param('i', $idUsuario);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$dadosUsuario = $resultado->fetch_assoc();
+
+if (!$dadosUsuario) {
+    header('Location: login.php');
+    exit();
+}
+
+$nomeUsuario = $dadosUsuario['nome'];
+$tipoUsuario = $dadosUsuario['id_funcao'];
+$cpfCnpjUsuario = $dadosUsuario['cpf_cnpj'];
+$telefoneUsuario = $dadosUsuario['telefone'];
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
-    <link rel="stylesheet" href="assets/css/principal_comum.css">
+    <link rel="stylesheet" type="text/css" href="estilos.css">
 </head>
 <body>
-<div class="cabecalho">
-        <div class="logo_principal">
-            <img src="assets/imagens/logo_fundo_removido.png" alt="Logo EventFlow">
-        </div>
-    
-        <nav class="botoes">
-            <a href="principal_comum.php"> <label>Inicio</label></a>
-            <a href="eventos.php"> <label>Eventos</label></a>
-            <a href="ingressos.php"> <label>Ingressos</label></a>
-            <a href="perfil.php"> <label>Perfil</label></a>       
-        </nav>
+    <div class="container">
+        <div class="cabecalho">
+            <div class="nome_usuario">
+                <p>Bem-vindo, <?php echo $nomeUsuario; ?></p>
+            </div>
 
-        <div>
-            <h1 id="perfil_de_Usuário">Perfil de Usuário</h1>
-
+            <nav class="botoes">
+                <?php if ($tipoUsuario == 1) { ?>
+                    <a href="meus_eventos.php"><label>Meus Eventos</label></a>
+                <?php } ?>
+                <a href="eventos.php"><label>Eventos</label></a>
+            </nav>
         </div>
-    
+
+        <div class="informacoes_perfil">
+            <h2>Informações do Perfil</h2>
+
+            <div>
+                <label>Nome:</label>
+                <span><?php echo $nomeUsuario; ?></span>
+            </div>
+
+            <div>
+                <label>
+                    <?php
+                    if ($tipoUsuario == 1) {
+                        echo "CPF:";
+                    } elseif ($tipoUsuario == 2) {
+                        echo "CNPJ:";
+                    }
+                    ?>
+                </label>
+                <span><?php echo $cpfCnpjUsuario; ?></span>
+            </div>
+
+            <div>
+                <label>Telefone:</label>
+                <span><?php echo $telefoneUsuario; ?></span>
+            </div>
+
+            <a href="editar_perfil.php">Editar Informações</a>
+        </div>
+    </div>
 </body>
 </html>
+
