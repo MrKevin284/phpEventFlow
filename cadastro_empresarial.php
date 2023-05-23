@@ -16,7 +16,7 @@
             <img src="assets/imagens/logo_fundo_removido.png" alt="Logo EventFlow">
         </div>
 
-        <h1 id="user_empresarial">User Empresarial</h1>
+        <h1 id="cadastro_empresarial">Cadastro Empresarial</h1>
 
         <div class="login_cadastro_comum">
             <input type="text" placeholder="Nome" name="nome" required><br>
@@ -27,13 +27,13 @@
             <input type="password" placeholder="Senha" name="senha" required><br>
             <input type="hidden" name="tipo_user" value="2">
         </div>
-        <div class="concluir_user_empresarial">
+        <div class="concluir_cadastro_empresarial">
             <button type="submit" name="enviar" value="Entrar">
                 <h1>Concluir</h1>
             </button><br>
         </div>
 
-        <div class="voltar_user_empresarial">
+        <div class="voltar_cadastro_empresarial">
             <?php
             echo '<a href="login.html"><img src="assets/imagens/seta-voltar.png"></a>';
             ?>

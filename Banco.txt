@@ -83,27 +83,11 @@ CREATE TABLE iten_loja (
   FOREIGN KEY (idevento) REFERENCES eventos (idevento)
 );
 
-INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (1, 'User Comum');
-INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (2, 'User Empresarial');
+INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (1, 'cadastro Pessoal');
+INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (2, 'cadastro Empresarial');
 
-INSERT INTO usuario (nome, cpf_cnpj, tipo_user, telefone)
-VALUES
-  ('João da Silva', '12345678900', 2, '(11) 987654321'),
-  ('Maria Souza', '98765432100', 2, '(21) 123456789');
-
-INSERT INTO usuario (nome, cpf_cnpj, tipo_user, telefone)
-VALUES
-  ('Pedro Santos', '11122233344', 1, '(31) 55556666'),
-  ('Ana Oliveira', '55544433322', 1, '(41) 99998888');
-
-INSERT INTO login (email, senha, idusuario)
-VALUES
-  ('joao.silva@example.com', 'senha123', 1),
-  ('maria.souza@example.com', 'senha456', 2),
-  ('pedro.santos@example.com', 'senha789', 3),
-  ('ana.oliveira@example.com', 'senha012', 4);
-  
-  INSERT INTO eventos (nome_evento, endereco, descricao, data_evento, horario, idusuario)
+ INSERT INTO eventos (nome_evento, endereco, descricao, data_evento, horario, idusuario)
 VALUES
   ('BGS - 2023', 'Rua 13 São Paulo SP', 'Venha fazer parte dessa aventura!', '2023-01-01', '2023-01-01 12:00:00', 2),
   ('BasquetBol 2023', 'Rua 11 Rio de Janeiro RJ', 'Venha fazer parte dessa aventura!', '2023-02-01', '2023-02-01 14:00:00', 2);
+
