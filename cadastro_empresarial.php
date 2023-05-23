@@ -18,7 +18,7 @@
 
         <h1 id="cadastro_empresarial">Cadastro Empresarial</h1>
 
-        <div class="login_cadastro_comum">
+        <div class="login_cadastro_pessoal">
             <input type="text" placeholder="Nome" name="nome" required><br>
             <input type="number" placeholder="CNPJ" name="cpf_cnpj" required><br>
             <input type="number" placeholder="Contato" name="telefone" required><br>
