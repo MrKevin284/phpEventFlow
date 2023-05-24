@@ -15,8 +15,8 @@
         <h1 id="cadastro_pessoal">Cadastro Pessoal</h1>
         <div class="login_cadastro_pessoal">
             <input type="text" placeholder="Nome" name="nome" required><br>
-            <input type="number" placeholder="Telefone" name="telefone" required><br>
-            <input type="number" placeholder="CPF" name="cpf_cnpj" required><br>
+            <input type="text" placeholder="Telefone" name="telefone" required><br>
+            <input type="text" placeholder="CPF" name="cpf_cnpj" required><br>
             <input type="text" placeholder="Email" name="email" required><br>
             <input type="password" placeholder="Senha" name="senha" required><br>
             <input type="hidden" name="tipo_user" value="1">

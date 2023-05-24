@@ -69,7 +69,6 @@
                     echo '<span>' . $row["nome_evento"] . '</span>';
                     echo '<h1>' . $row["nome_evento"] . '</h1>';
                     echo '<h3>' . $row["descricao"] . '</h3>';
-                    echo '<a href="evento.php?id=' . $row["idevento"] . '">Clique aqui para saber mais!</a>';
                     echo '</div>';
                     echo '<div class="cartao_direito">';
                     echo '<img id="imagem" src="' . $row["imagem"] . '" alt="Evento">';

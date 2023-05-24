@@ -26,6 +26,7 @@ $query_login = mysqli_stmt_execute($stmt_login);
 
 if ($query_usuario && $query_login) {
     header("location: login.php");
+    exit();
 } else {
     echo "Erro ao cadastrar usuário. Por favor, tente novamente.";
 }
