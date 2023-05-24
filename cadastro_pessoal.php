@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,16 +7,12 @@
     <title>Cadastro Pessoal</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
     <form class="form_cadastro_pessoal" action="processa_cadastro.php" method="POST">
-
         <div class="logo_cadastro_pessoal">
             <img src="assets/imagens/logo_fundo_removido.png" alt="Logo EventFlow">
         </div>
-
         <h1 id="cadastro_pessoal">Cadastro Pessoal</h1>
-
         <div class="login_cadastro_pessoal">
             <input type="text" placeholder="Nome" name="nome" required><br>
             <input type="number" placeholder="Telefone" name="telefone" required><br>
@@ -31,16 +26,11 @@
                 <h1>Concluir</h1>
             </button><br>
         </div>
-
         <div class="voltar_cadastro_pessoal">
             <?php
             echo '<a href="tipo_de_usuario.php"><img src="assets/imagens/seta-voltar.png"></a>';
             ?>
-
         </div>
-
     </form>
 </body>
-
 </html>
-

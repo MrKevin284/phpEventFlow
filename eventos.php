@@ -49,7 +49,9 @@
             }
             ?>
         </nav>
-
+        <div class="nome_usuario">
+        <h2>Bem-vindo, <?php echo $nome_usuario; ?></h2>
+    </div>
         <div class="caixa">
             <h1 id="todos_os_eventos">Todos os Eventos</h1>
 
@@ -85,9 +87,6 @@
         </div>
     </div>
 
-    <div class="nome_usuario">
-        <p>Bem-vindo, <?php echo $nome_usuario; ?></p>
-    </div>
 </body>
 </html>
 

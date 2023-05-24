@@ -9,7 +9,7 @@ if (!isset($_SESSION['idusuario'])) {
 
 $idUsuario = $_SESSION['idusuario'];
 
-$query = "SELECT u.nome, u.cpf_cnpj, u.telefone, tu.id_funcao FROM usuario u
+$query = "SELECT u.nome, u.cpf_cnpj, u.telefone, tu.id_funcao, u.empresa FROM usuario u
           INNER JOIN tipo_usuario tu ON u.tipo_user = tu.id_funcao
           WHERE u.idusuario = ?";
 $stmt = $conexao->prepare($query);
@@ -27,6 +27,7 @@ $nomeUsuario = $dadosUsuario['nome'];
 $tipoUsuario = $dadosUsuario['id_funcao'];
 $cpfCnpjUsuario = $dadosUsuario['cpf_cnpj'];
 $telefoneUsuario = $dadosUsuario['telefone'];
+$empresaUsuario = $dadosUsuario['empresa'];
 ?>
 
 <!DOCTYPE html>
@@ -75,10 +76,16 @@ $telefoneUsuario = $dadosUsuario['telefone'];
                 <label>Telefone:</label>
                 <span><?php echo $telefoneUsuario; ?></span>
             </div>
+            
+            <?php if ($tipoUsuario == 2) { ?>
+            <div>
+                <label>Empresa:</label>
+                <span><?php echo $empresaUsuario; ?></span>
+            </div>
+            <?php } ?>
 
             <a href="editar_perfil.php">Editar Informações</a>
         </div>
     </div>
 </body>
 </html>
-

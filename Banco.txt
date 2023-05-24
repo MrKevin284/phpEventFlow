@@ -10,10 +10,11 @@ CREATE TABLE tipo_usuario (
 
 CREATE TABLE usuario (
   idusuario INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  nome VARCHAR(300),
-  cpf_cnpj VARCHAR(18),
-  tipo_user INTEGER,
-  telefone VARCHAR(20),
+  nome VARCHAR(300) not null,
+  cpf_cnpj VARCHAR(18) not null,
+  tipo_user INTEGER not null,
+  telefone VARCHAR(20) not null,
+  empresa VARCHAR(300),
   FOREIGN KEY (tipo_user) REFERENCES tipo_usuario (id_funcao)
 );
 
@@ -86,8 +87,13 @@ CREATE TABLE iten_loja (
 INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (1, 'cadastro Pessoal');
 INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (2, 'cadastro Empresarial');
 
- INSERT INTO eventos (nome_evento, endereco, descricao, data_evento, horario, idusuario)
+  
+  INSERT INTO eventos (nome_evento, endereco, descricao, data_evento, horario, idusuario)
 VALUES
   ('BGS - 2023', 'Rua 13 São Paulo SP', 'Venha fazer parte dessa aventura!', '2023-01-01', '2023-01-01 12:00:00', 2),
   ('BasquetBol 2023', 'Rua 11 Rio de Janeiro RJ', 'Venha fazer parte dessa aventura!', '2023-02-01', '2023-02-01 14:00:00', 2);
 
+
+
+select * from login;
+select * from usuario;
