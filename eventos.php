@@ -38,19 +38,24 @@
         ?>
 
         <nav class="botoes">
-            <a href="eventos.php"> <label>Eventos</label></a>
+            <?php
+            if ($tipo_usuario == 1) {
+                echo '<a href="meus_eventos.php"> <label>Meus eventos</label></a>';
+            } elseif ($tipo_usuario == 2) {
+                echo '<a href="eventos_criados.php"> <label>Eventos criados</label></a>';
+            }
+            ?>
             <a href="perfil.php"> <label>Perfil</label></a>
             <a href="login.php"> <label>Logout</label></a>
-            
+
             <?php
-            // Verificar se o usuário é empresarial para exibir o botão de subir evento
             if ($tipo_usuario == 2) {
                 echo '<a href="criar_evento.php"> <label>Criar Evento</label></a>';
             }
             ?>
         </nav>
         <div class="nome_usuario">
-        <h2>Bem-vindo, <?php echo $nome_usuario; ?></h2>
+        <h2>Bem-vindo(a), <?php echo $nome_usuario; ?>!</h2>
     </div>
         <div class="caixa">
             <h1 id="todos_os_eventos">Todos os Eventos</h1>
@@ -70,9 +75,6 @@
                     echo '<h1>' . $row["nome_evento"] . '</h1>';
                     echo '<h3>' . $row["descricao"] . '</h3>';
                     echo '</div>';
-                    echo '<div class="cartao_direito">';
-                    echo '<img id="imagem" src="' . $row["imagem"] . '" alt="Evento">';
-                    echo '</div>';
                     echo '</div>';
                 }
             } else {
@@ -88,4 +90,3 @@
 
 </body>
 </html>
-

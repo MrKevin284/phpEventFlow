@@ -40,14 +40,22 @@ $empresaUsuario = $dadosUsuario['empresa'];
     <div class="container">
         <div class="cabecalho">
             <div class="nome_usuario">
-                <p>Bem-vindo, <?php echo $nomeUsuario; ?></p>
+                <p>Bem-vindo(a), <?php echo $nomeUsuario; ?>!</p>
             </div>
 
             <nav class="botoes">
-                <?php if ($tipoUsuario == 1) { ?>
+            <?php if ($tipoUsuario == 1) { ?>
+                    <a href="eventos.php"><label>Eventos</label></a>
                     <a href="meus_eventos.php"><label>Meus Eventos</label></a>
+                    <a href="carrinho.php"><label>Carrinho</label></a>
+                    <a href="login.php"><label>Logout</label></a>
+                <?php } elseif ($tipoUsuario == 2) { ?>
+                    <a href="eventos.php"><label>Eventos</label></a>
+                    <a href="eventos_criados.php"><label>Eventos Criados</label></a>
+                    <a href="lojas_eventos.php"><label>Lojas de Eventos</label></a>
+                    <a href="criar_eventos.php"><label>Criar Evento</label></a>
+                    <a href="login.php"><label>logout</label></a>
                 <?php } ?>
-                <a href="eventos.php"><label>Eventos</label></a>
             </nav>
         </div>
 
