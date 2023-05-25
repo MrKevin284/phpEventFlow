@@ -32,4 +32,4 @@ if (mysqli_num_rows($resultado) == 1) {
     header("Location: login.php");
     exit();
 }
-?>
+?> 

@@ -31,3 +31,4 @@ if ($query_usuario && $query_login) {
     echo "Erro ao cadastrar usuário. Por favor, tente novamente.";
 }
 ?>
+
