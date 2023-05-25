@@ -29,24 +29,18 @@ $cpfCnpjUsuario = $dadosUsuario['cpf_cnpj'];
 $telefoneUsuario = $dadosUsuario['telefone'];
 $empresaUsuario = $dadosUsuario['empresa'];
 
-// Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obter os dados do formulário
+    // Receber os dados do formulário
     $nome = $_POST['nome'];
+    $cpfCnpj = $_POST['cpf_cnpj'];
     $telefone = $_POST['telefone'];
+    $empresa = $_POST['empresa'];
 
-    // Verificar o tipo de usuário e obter o valor do campo CPF/CNPJ
-    if ($tipoUsuario == 1) {
-        $cpfCnpj = $_POST['cpf_cnpj'];
-    } elseif ($tipoUsuario == 2) {
-        $cpfCnpj = $_POST['cpf_cnpj'];
-    }
-
-    // Atualizar as informações no banco de dados
-    $queryAtualizar = "UPDATE usuario SET nome = ?, telefone = ?, cpf_cnpj = ? WHERE idusuario = ?";
-    $stmtAtualizar = $conexao->prepare($queryAtualizar);
-    $stmtAtualizar->bind_param('sssi', $nome, $telefone, $cpfCnpj, $idUsuario);
-    $stmtAtualizar->execute();
+    // Atualizar os dados do usuário no banco de dados
+    $query = "UPDATE usuario SET nome = ?, cpf_cnpj = ?, telefone = ?, empresa = ? WHERE idusuario = ?";
+    $stmt = $conexao->prepare($query);
+    $stmt->bind_param('ssssi', $nome, $cpfCnpj, $telefone, $empresa, $idUsuario);
+    $stmt->execute();
 
     // Redirecionar para a página de perfil após a atualização
     header('Location: perfil.php');
@@ -66,8 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="nome_usuario">
                 <p>Bem-vindo(a), <?php echo $nomeUsuario; ?>!</p>
             </div>
+
             <nav class="botoes">
-            <?php if ($tipoUsuario == 1) { ?>
+                <?php if ($tipoUsuario == 1) { ?>
                     <a href="eventos.php"><label>Eventos</label></a>
                     <a href="meus_eventos.php"><label>Meus Eventos</label></a>
                     <a href="carrinho.php"><label>Carrinho</label></a>
@@ -76,34 +71,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="eventos.php"><label>Eventos</label></a>
                     <a href="eventos_criados.php"><label>Eventos Criados</label></a>
                     <a href="criar_eventos.php"><label>Criar Evento</label></a>
-                    <a href="login.php"><label>logout</label></a>
+                    <a href="login.php"><label>Logout</label></a>
                 <?php } ?>
             </nav>
         </div>
 
         <div class="informacoes_perfil">
-            <h2>Editar Informações</h2>
+            <h2>Editar Informações do Perfil</h2>
 
-            <form method="POST">
+            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div>
                     <label>Nome:</label>
-                    <input type="text" name="nome" value="<?php echo $nomeUsuario; ?>">
+                    <input type="text" name="nome" value="<?php echo $nomeUsuario; ?>" required>
+                </div>
+
+                <div>
+                    <label>
+                        <?php
+                        if ($tipoUsuario == 1) {
+                            echo "CPF:";
+                        } elseif ($tipoUsuario == 2) {
+                            echo "CNPJ:";
+                        }
+                        ?>
+                    </label>
+                    <input type="text" name="cpf_cnpj" value="<?php echo $cpfCnpjUsuario; ?>" required>
                 </div>
 
                 <div>
                     <label>Telefone:</label>
-                    <input type="text" name="telefone" value="<?php echo $telefoneUsuario; ?>">
+                    <input type="text" name="telefone" value="<?php echo $telefoneUsuario; ?>" required>
                 </div>
-
-                <?php if ($tipoUsuario == 1) { ?>
+                
+                <?php if ($tipoUsuario == 2) { ?>
                 <div>
-                    <label>CPF:</label>
-                    <input type="text" name="cpf_cnpj" value="<?php echo $cpfCnpjUsuario; ?>">
-                </div>
-                <?php } elseif ($tipoUsuario == 2) { ?>
-                <div>
-                    <label>CNPJ:</label>
-                    <input type="text" name="cpf_cnpj" value="<?php echo $cpfCnpjUsuario; ?>">
+                    <label>Empresa:</label>
+                    <input type="text" name="empresa" value="<?php echo $empresaUsuario; ?>" required>
                 </div>
                 <?php } ?>
 
@@ -111,6 +114,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-    <a href="perfil.php">Voltar</a>
 </body>
 </html>
