@@ -37,23 +37,21 @@
         $tipo_usuario = $row_tipo_usuario['tipo_user'];
         ?>
 
-        <nav class="botoes">
-            <?php
-            if ($tipo_usuario == 1) {
-                echo '<a href="meus_eventos.php"> <label>Meus eventos</label></a>';
-            } elseif ($tipo_usuario == 2) {
-                echo '<a href="eventos_criados.php"> <label>Eventos criados</label></a>';
-            }
-            ?>
-            <a href="perfil.php"> <label>Perfil</label></a>
-            <a href="login.php"> <label>Logout</label></a>
 
-            <?php
-            if ($tipo_usuario == 2) {
-                echo '<a href="criar_evento.php"> <label>Criar Evento</label></a>';
-            }
-            ?>
-        </nav>
+        <nav class="botoes">
+            <?php if ($tipoUsuario == 1) { ?>
+                    <a href="perfil.php"><label>Perfil</label></a>
+                    <a href="meus_eventos.php"><label>Meus Eventos</label></a>
+                    <a href="carrinho.php"><label>Carrinho</label></a>
+                    <a href="login.php"><label>Logout</label></a>
+                <?php } elseif ($tipoUsuario == 2) { ?>
+                    <a href="perfil.php"><label>Perfil</label></a>
+                    <a href="eventos_criados.php"><label>Eventos Criados</label></a>
+                    <a href="criar_eventos.php"><label>Criar Evento</label></a>
+                    <a href="login.php"><label>logout</label></a>
+                <?php } ?>
+            </nav>
+        
         <div class="nome_usuario">
         <h2>Bem-vindo(a), <?php echo $nome_usuario; ?>!</h2>
     </div>
