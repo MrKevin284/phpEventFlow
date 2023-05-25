@@ -43,7 +43,7 @@
                     <a href="perfil.php"><label>Perfil</label></a>
                     <a href="eventos_criados.php"><label>Eventos Criados</label></a>
                     <a href="criar_eventos.php"><label>Criar Evento</label></a>
-                    <a href="login.php"><label>logout</label></a>
+                    <a href="login.php"><label>Logout</label></a>
                 <?php } ?>
         </nav>
         
@@ -63,6 +63,7 @@
             if (mysqli_num_rows($resultado) > 0) {
                 // Exibir os eventos
                 while ($row = mysqli_fetch_assoc($resultado)) {
+                    echo '<a href="info_evento.php?id=' . $row["id_evento"] . '" class="caixa_evento">';
                     echo '<div class="cartao">';
                     echo '<div class="cartao_esquerdo">';
                     echo '<span>' . $row["nome_evento"] . '</span>';
@@ -70,6 +71,7 @@
                     echo '<h3>' . $row["descricao"] . '</h3>';
                     echo '</div>';
                     echo '</div>';
+                    echo '</a>';
                 }
             } else {
                 echo '<p>Nenhum evento encontrado.</p>';

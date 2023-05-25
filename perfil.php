@@ -9,8 +9,9 @@ if (!isset($_SESSION['idusuario'])) {
 
 $idUsuario = $_SESSION['idusuario'];
 
-$query = "SELECT u.nome, u.cpf_cnpj, u.telefone, tu.id_funcao, u.empresa FROM usuario u
+$query = "SELECT u.nome, u.cpf_cnpj, u.telefone, l.email, tu.id_funcao, u.empresa FROM usuario u
           INNER JOIN tipo_usuario tu ON u.tipo_user = tu.id_funcao
+          INNER JOIN login l ON u.idusuario = l.idusuario
           WHERE u.idusuario = ?";
 $stmt = $conexao->prepare($query);
 $stmt->bind_param('i', $idUsuario);
@@ -27,6 +28,7 @@ $nomeUsuario = $dadosUsuario['nome'];
 $tipoUsuario = $dadosUsuario['id_funcao'];
 $cpfCnpjUsuario = $dadosUsuario['cpf_cnpj'];
 $telefoneUsuario = $dadosUsuario['telefone'];
+$emailUsuario = $dadosUsuario['email'];
 $empresaUsuario = $dadosUsuario['empresa'];
 ?>
 
@@ -53,7 +55,7 @@ $empresaUsuario = $dadosUsuario['empresa'];
                     <a href="eventos.php"><label>Eventos</label></a>
                     <a href="eventos_criados.php"><label>Eventos Criados</label></a>
                     <a href="criar_eventos.php"><label>Criar Evento</label></a>
-                    <a href="login.php"><label>logout</label></a>
+                    <a href="login.php"><label>Logout</label></a>
                 <?php } ?>
             </nav>
         </div>
@@ -83,6 +85,11 @@ $empresaUsuario = $dadosUsuario['empresa'];
                 <label>Telefone:</label>
                 <span><?php echo $telefoneUsuario; ?></span>
             </div>
+
+            <div>
+                <label>Email:</label>
+                <span><?php echo $emailUsuario; ?></span>
+            </div>
             
             <?php if ($tipoUsuario == 2) { ?>
             <div>
@@ -96,4 +103,3 @@ $empresaUsuario = $dadosUsuario['empresa'];
     </div>
 </body>
 </html>
-

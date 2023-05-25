@@ -9,8 +9,9 @@ if (!isset($_SESSION['idusuario'])) {
 
 $idUsuario = $_SESSION['idusuario'];
 
-$query = "SELECT u.nome, u.cpf_cnpj, u.telefone, tu.id_funcao, u.empresa FROM usuario u
+$query = "SELECT u.nome, u.cpf_cnpj, u.telefone, tu.id_funcao, u.empresa, l.email FROM usuario u
           INNER JOIN tipo_usuario tu ON u.tipo_user = tu.id_funcao
+          INNER JOIN login l ON u.idusuario = l.idusuario
           WHERE u.idusuario = ?";
 $stmt = $conexao->prepare($query);
 $stmt->bind_param('i', $idUsuario);
@@ -28,6 +29,7 @@ $tipoUsuario = $dadosUsuario['id_funcao'];
 $cpfCnpjUsuario = $dadosUsuario['cpf_cnpj'];
 $telefoneUsuario = $dadosUsuario['telefone'];
 $empresaUsuario = $dadosUsuario['empresa'];
+$emailUsuario = $dadosUsuario['email'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Receber os dados do formulário
@@ -35,11 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cpfCnpj = $_POST['cpf_cnpj'];
     $telefone = $_POST['telefone'];
     $empresa = $_POST['empresa'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
 
     // Atualizar os dados do usuário no banco de dados
     $query = "UPDATE usuario SET nome = ?, cpf_cnpj = ?, telefone = ?, empresa = ? WHERE idusuario = ?";
     $stmt = $conexao->prepare($query);
     $stmt->bind_param('ssssi', $nome, $cpfCnpj, $telefone, $empresa, $idUsuario);
+    $stmt->execute();
+
+    // Atualizar o email e a senha do usuário na tabela de login
+    $query = "UPDATE login SET email = ?, senha = ? WHERE idusuario = ?";
+    $stmt = $conexao->prepare($query);
+    $stmt->bind_param('ssi', $email, $senha, $idUsuario);
     $stmt->execute();
 
     // Redirecionar para a página de perfil após a atualização
@@ -110,10 +120,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <?php } ?>
 
+                <div>
+                    <label>Email:</label>
+                    <input type="email" name="email" value="<?php echo $emailUsuario; ?>" required>
+                </div>
+
+                <div>
+                    <label>Senha:</label>
+                    <input type="password" name="senha" required>
+                </div>
+
                 <button type="submit">Salvar</button>
             </form>
+            <div>
+                <a href="perfil.php">Voltar</a>
+            </div>
         </div>
     </div>
 </body>
 </html>
-
