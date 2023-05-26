@@ -12,7 +12,7 @@
     </div>
 
     <a href="eventos.php">Eventos</a>
-    <a href="meus_eventos.php">Meus Eventos</a>
+    <a href="eventos_criados.php">Eventos Criados</a>
     <a href="perfil.php">Perfil</a>
     <a href="login.php">Logout</a>
 

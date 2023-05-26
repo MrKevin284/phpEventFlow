@@ -97,3 +97,116 @@ VALUES
 
 select * from login;
 select * from usuario;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BANCO alterado salvei aqui pq n quero quebrar o antigo
+
+CREATE DATABASE EventFlow;
+
+USE EventFlow;
+
+CREATE TABLE tipo_usuario (
+  id_funcao INTEGER,
+  descricao VARCHAR(100),
+  PRIMARY KEY (id_funcao)
+);
+
+CREATE TABLE usuario (
+  idusuario INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  nome VARCHAR(300) NOT NULL,
+  cpf_cnpj VARCHAR(18),
+  tipo_user INTEGER NOT NULL,
+  telefone VARCHAR(20) NOT NULL,
+  empresa VARCHAR(300) DEFAULT NULL,
+  FOREIGN KEY (tipo_user) REFERENCES tipo_usuario (id_funcao)
+);
+
+CREATE TABLE login (
+  idlogin INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  email VARCHAR(300) NOT NULL,
+  senha VARCHAR(150) NOT NULL,
+  idusuario INT NOT NULL,
+  FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+);
+
+CREATE TABLE eventos (
+  idevento INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  nome_evento VARCHAR(250) NOT NULL,
+  endereco VARCHAR(200) NOT NULL,
+  descricao VARCHAR(500) NOT NULL,
+  data_evento DATE NOT NULL,
+  horario DATETIME,
+  idusuario INT NOT NULL,
+  FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+);
+
+CREATE TABLE tipo_ingresso (
+  id_tipoingresso INT NOT NULL PRIMARY KEY,
+  descricao VARCHAR(100)
+);
+
+CREATE TABLE ingresso (
+  id_ingresso INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  quantidade INT NOT NULL,
+  valor DECIMAL(10,2),
+  id_tipoingresso INT NOT NULL,
+  idevento INT NOT NULL,
+  FOREIGN KEY (id_tipoingresso) REFERENCES tipo_ingresso (id_tipoingresso),
+  FOREIGN KEY (idevento) REFERENCES eventos (idevento)
+);
+
+CREATE TABLE carrinho (
+  idcarrinho INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  idusuario INT NOT NULL,
+  FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+);
+
+CREATE TABLE carrinho_ingresso (
+  idcarrinho INT NOT NULL,
+  id_ingresso INT NOT NULL,
+  quantidade INT NOT NULL,
+  PRIMARY KEY (idcarrinho, id_ingresso),
+  FOREIGN KEY (idcarrinho) REFERENCES carrinho (idcarrinho),
+  FOREIGN KEY (id_ingresso) REFERENCES ingresso (id_ingresso)
+);
+
+CREATE TABLE venda (
+  id_venda INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  nome_item VARCHAR(200) NOT NULL,
+  quantidade INT NOT NULL,
+  preco_unitario DECIMAL(10,2)
+);
+
+CREATE TABLE iten_loja (
+  iditem_loja INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  nome VARCHAR(250) NOT NULL,
+  descricao VARCHAR(300) NOT NULL,
+  quantidade INT NOT NULL,
+  valor DECIMAL(10,2) NOT NULL,
+  idevento INT NOT NULL,
+  FOREIGN KEY (idevento) REFERENCES eventos (idevento)
+);
+
+INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (1, 'cadastro Pessoal');
+INSERT INTO tipo_usuario (id_funcao, descricao) VALUES (2, 'cadastro Empresarial');
+
+INSERT INTO tipo_ingresso (id_tipoingresso, descricao) VALUES (1, 'entrada inteira');
+INSERT INTO tipo_ingresso (id_tipoingresso, descricao) VALUES (2, 'entrada estudante');
+
+
+select * from login;
+select * from usuario;
+select * from eventos;
+select * from ingresso;
