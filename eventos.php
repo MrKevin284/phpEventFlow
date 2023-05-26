@@ -35,18 +35,18 @@
 
         <nav class="botoes">
             <?php if ($tipo_usuario == 1) { ?>
-                    <a href="perfil.php"><label>Perfil</label></a>
-                    <a href="meus_eventos.php"><label>Meus Eventos</label></a>
-                    <a href="carrinho.php"><label>Carrinho</label></a>
-                    <a href="login.php"><label>Logout</label></a>
-                <?php } elseif ($tipo_usuario == 2) { ?>
-                    <a href="perfil.php"><label>Perfil</label></a>
-                    <a href="eventos_criados.php"><label>Eventos Criados</label></a>
-                    <a href="criar_eventos.php"><label>Criar Evento</label></a>
-                    <a href="login.php"><label>Logout</label></a>
-                <?php } ?>
+                <a href="perfil.php"><label>Perfil</label></a>
+                <a href="meus_eventos.php"><label>Meus Eventos</label></a>
+                <a href="carrinho.php"><label>Carrinho</label></a>
+                <a href="login.php"><label>Logout</label></a>
+            <?php } elseif ($tipo_usuario == 2) { ?>
+                <a href="perfil.php"><label>Perfil</label></a>
+                <a href="eventos_criados.php"><label>Eventos Criados</label></a>
+                <a href="criar_eventos.php"><label>Criar Evento</label></a>
+                <a href="login.php"><label>Logout</label></a>
+            <?php } ?>
         </nav>
-        
+
         <div class="nome_usuario">
             <h2>Bem-vindo(a), <?php echo $nome_usuario; ?>!</h2>
         </div>
@@ -63,7 +63,7 @@
             if (mysqli_num_rows($resultado) > 0) {
                 // Exibir os eventos
                 while ($row = mysqli_fetch_assoc($resultado)) {
-                    echo '<a href="info_evento.php?id=' . $row["id_evento"] . '" class="caixa_evento">';
+                    echo '<a href="info_evento.php?id=' . $row["idevento"] . '" class="caixa_evento">';
                     echo '<div class="cartao">';
                     echo '<div class="cartao_esquerdo">';
                     echo '<span>' . $row["nome_evento"] . '</span>';
@@ -86,4 +86,3 @@
 
 </body>
 </html>
-
