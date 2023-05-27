@@ -50,7 +50,7 @@
                 $id_evento = $_GET['id'];
 
                 // Consultar o evento no banco de dados
-                $query_evento = "SELECT * FROM eventos WHERE idevento = $id_evento AND id_criador = $idusuario";
+                $query_evento = "SELECT * FROM eventos WHERE idevento = $id_evento";
                 $resultado_evento = mysqli_query($conexao, $query_evento);
                 $dados_evento = mysqli_fetch_assoc($resultado_evento);
 
