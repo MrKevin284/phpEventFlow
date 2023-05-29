@@ -25,16 +25,22 @@
 
         // Obter informações do usuário logado
         $idusuario = $_SESSION['idusuario'];
-        $query_usuario = "SELECT nome FROM usuario WHERE idusuario = $idusuario";
+        $query_usuario = "SELECT nome, tipo_user FROM usuario WHERE idusuario = $idusuario";
         $resultado_usuario = mysqli_query($conexao, $query_usuario);
         $row_usuario = mysqli_fetch_assoc($resultado_usuario);
         $nome_usuario = $row_usuario['nome'];
+        $tipo_usuario = $row_usuario['tipo_user'];
         ?>
 
         <nav class="botoes">
+            <?php if ($tipo_usuario == 2): // Cadastro Empresarial ?>
+                <a href="criar_eventos.php"><label>Criar Eventos</label></a>
+                <a href="eventos_criados.php"><label>Eventos Criados</label></a>
+            <?php else: // Cadastro Pessoal ?>
+                <a href="eventos.php"><label>Eventos</label></a>
+                <a href="meus_eventos.php"><label>Meus Eventos</label></a>
+            <?php endif; ?>
             <a href="perfil.php"><label>Perfil</label></a>
-            <a href="meus_eventos.php"><label>Meus Eventos</label></a>
-            <a href="criar_eventos.php"><label>Criar Evento</label></a>
             <a href="login.php"><label>Logout</label></a>
         </nav>
 
@@ -83,7 +89,9 @@
                         echo '<p>Nenhum ingresso disponível para este evento.</p>';
                     }
 
-                    echo '<a href="editar_evento.php?id=' . $id_evento . '">Editar Evento</a>';
+                    if ($tipo_usuario == 2) { // Cadastro Empresarial
+                        echo '<a href="editar_evento.php?id=' . $id_evento . '">Editar Evento</a>';
+                    }
 
                     echo '<a href="eventos.php">Voltar para a lista de eventos</a>';
                 } else {

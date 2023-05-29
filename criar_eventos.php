@@ -93,7 +93,7 @@
         <label for="horario">Horário do Evento:</label>
         <input type="time" id="horario" name="horario" required><br><br>
 
-        <label for="quantidade_ingressos">Quantidade de Ingressos Disponíveis:</label>
+        <label for="quantidade_ingressos">Quantidade de Entradas Inteiras e Estudantes Disponíveis:</label>
         <input type="number" id="quantidade_ingressos" name="quantidade_ingressos" required><br><br>
 
         <label for="preco_inteira">Preço da Entrada Inteira:</label>
