@@ -45,13 +45,15 @@
         $nome_evento = $_POST['nome_evento'];
         $endereco = $_POST['endereco'];
         $descricao = $_POST['descricao'];
-        $data_evento = $_POST['data_evento'];
-        $horario = $_POST['horario'];
+        $data_inicio_evento = $_POST['data_inicio_evento'];
+        $data_final_evento = $_POST['data_final_evento'];
+        $horario_inicial = $_POST['horario_inicial'];
+        $horario_final = $_POST['horario_final'];
         $quantidade_ingressos = $_POST['quantidade_ingressos'];
         $preco_inteira = number_format($_POST['preco_inteira'], 2, '.', '');
 
         // Inserir o evento no banco de dados
-        $inserir_evento = "INSERT INTO eventos (nome_evento, endereco, descricao, data_evento, horario, idusuario) VALUES ('$nome_evento', '$endereco', '$descricao', '$data_evento', '$horario', $idusuario)";
+        $inserir_evento = "INSERT INTO eventos (nome_evento, endereco, descricao, data_inicio_evento, data_final_evento, horario_inicial, horario_final, idusuario) VALUES ('$nome_evento', '$endereco', '$descricao', '$data_inicio_evento', '$data_final_evento', '$horario_inicial', '$horario_final', $idusuario)";
 
         if (mysqli_query($conexao, $inserir_evento)) {
             $id_evento = mysqli_insert_id($conexao);
@@ -87,11 +89,17 @@
         <label for="descricao">Descrição:</label>
         <textarea id="descricao" name="descricao" required></textarea><br><br>
 
-        <label for="data_evento">Data do Evento:</label>
-        <input type="date" id="data_evento" name="data_evento" required><br><br>
+        <label for="data_inicio_evento">Data de Início do Evento:</label>
+        <input type="date" id="data_inicio_evento" name="data_inicio_evento" required><br><br>
 
-        <label for="horario">Horário do Evento:</label>
-        <input type="time" id="horario" name="horario" required><br><br>
+        <label for="data_final_evento">Data de Término do Evento:</label>
+        <input type="date" id="data_final_evento" name="data_final_evento" required><br><br>
+
+        <label for="horario_inicial">Horário de Início do Evento:</label>
+        <input type="time" id="horario_inicial" name="horario_inicial" required><br><br>
+
+        <label for="horario_final">Horário de Término do Evento:</label>
+        <input type="time" id="horario_final" name="horario_final" required><br><br>
 
         <label for="quantidade_ingressos">Quantidade de Entradas Inteiras e Estudantes Disponíveis:</label>
         <input type="number" id="quantidade_ingressos" name="quantidade_ingressos" required><br><br>

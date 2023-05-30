@@ -31,8 +31,10 @@ CREATE TABLE eventos (
   nome_evento VARCHAR(250) NOT NULL,
   endereco VARCHAR(200) NOT NULL,
   descricao VARCHAR(500) NOT NULL,
-  data_evento DATE NOT NULL,
-  horario TIME,
+  data_inicio_evento DATE NOT NULL,
+  data_final_evento DATE NOT NULL,
+  horario_inicial TIME,
+  horario_final TIME,
   idusuario INT NOT NULL,
   FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
 );
