@@ -76,6 +76,9 @@
                     $data_evento = date('d/m/Y', strtotime($dados_evento['data_evento']));
                     echo '<p>Data do Evento: ' . $data_evento . '</p>';
 
+                    echo '<p>Descrição: ' . $dados_evento['descricao'] . '</p>';
+                    echo '<p>Local: ' . $dados_evento['endereco'] . '</p>';
+
                     echo '<h2>Ingressos:</h2>';
 
                     // Consultar os ingressos relacionados ao evento
