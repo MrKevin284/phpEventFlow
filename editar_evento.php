@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 
     // Verificar se o formulário foi enviado
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Obter os dados do formulário
+        // Obter os dados do formulário para atualizar o evento
         $nomeEvento = $_POST['nome_evento'];
         $endereco = $_POST['endereco'];
         $descricao = $_POST['descricao'];
@@ -41,14 +41,37 @@ if (isset($_GET['id'])) {
         $stmtAtualizarEvento->bind_param('sssssisi', $nomeEvento, $endereco, $descricao, $dataInicioEvento, $dataFinalEvento, $horarioInicial, $horarioFinal, $idEvento);
         $resultadoAtualizarEvento = $stmtAtualizarEvento->execute();
 
-        // Verificar se a atualização foi bem-sucedida
+        // Verificar se a atualização do evento foi bem-sucedida
         if ($resultadoAtualizarEvento) {
             // Redirecionar para a página de eventos após a atualização bem-sucedida
             header('Location: eventos.php');
             exit();
         } else {
-            // Exibir mensagem de erro caso a atualização tenha falhado
+            // Exibir mensagem de erro caso a atualização do evento tenha falhado
             echo 'Erro ao atualizar o evento.';
+        }
+
+        // Obter os dados dos ingressos para atualizar
+        $quantidades = $_POST['quantidade'];
+        $valores = $_POST['valor'];
+
+        // Atualizar os ingressos do evento no banco de dados
+        $queryAtualizarIngressos = "UPDATE ingresso SET quantidade = ?, valor = ? WHERE id_ingresso = ? AND idevento = ?";
+        $stmtAtualizarIngressos = $conexao->prepare($queryAtualizarIngressos);
+
+        foreach ($quantidades as $indice => $quantidade) {
+            $valor = $valores[$indice];
+            $idIngresso = $indice + 1; // Supondo que os IDs dos ingressos começam em 1
+
+            $stmtAtualizarIngressos->bind_param('ddii', $quantidade, $valor, $idIngresso, $idEvento);
+            $resultadoAtualizarIngressos = $stmtAtualizarIngressos->execute();
+
+            // Verificar se a atualização do ingresso foi bem-sucedida
+            if (!$resultadoAtualizarIngressos) {
+                // Exibir mensagem de erro caso a atualização do ingresso tenha falhado
+                echo 'Erro ao atualizar os ingressos.';
+                break; // Sair do loop em caso de erro
+            }
         }
     }
 
@@ -66,6 +89,20 @@ if (isset($_GET['id'])) {
         // Redirecionar para a página de eventos se o evento não for encontrado
         header('Location: eventos.php');
         exit();
+    }
+
+    // Obter os dados dos ingressos do evento do banco de dados
+    $queryObterIngressos = "SELECT * FROM ingresso WHERE idevento = ?";
+    $stmtObterIngressos = $conexao->prepare($queryObterIngressos);
+    $stmtObterIngressos->bind_param('i', $idEvento);
+    $stmtObterIngressos->execute();
+    $resultadoObterIngressos = $stmtObterIngressos->get_result();
+
+    // Verificar se existem ingressos para o evento
+    if ($resultadoObterIngressos && $resultadoObterIngressos->num_rows > 0) {
+        $ingressos = $resultadoObterIngressos->fetch_all(MYSQLI_ASSOC);
+    } else {
+        $ingressos = array();
     }
 } else {
     // Redirecionar para a página de eventos se o ID do evento não for fornecido
@@ -95,6 +132,15 @@ if (isset($_GET['id'])) {
 
     <label for="horario_final">Horário de Término:</label>
     <input type="time" id="horario_final" name="horario_final" value="<?php echo $evento['horario_final']; ?>"><br><br>
+
+    <h2>Ingressos</h2>
+    <?php foreach ($ingressos as $ingresso): ?>
+        <label for="quantidade_<?php echo $ingresso['id_ingresso']; ?>">Quantidade:</label>
+        <input type="number" id="quantidade_<?php echo $ingresso['id_ingresso']; ?>" name="quantidade[<?php echo $ingresso['id_ingresso']; ?>]" value="<?php echo $ingresso['quantidade']; ?>"><br><br>
+
+        <label for="valor_<?php echo $ingresso['id_ingresso']; ?>">Valor:</label>
+        <input type="text" id="valor_<?php echo $ingresso['id_ingresso']; ?>" name="valor[<?php echo $ingresso['id_ingresso']; ?>]" value="<?php echo $ingresso['valor']; ?>"><br><br>
+    <?php endforeach; ?>
 
     <input type="submit" value="Atualizar">
 </form>
