@@ -51,6 +51,7 @@
         $horario_final = $_POST['horario_final'];
         $quantidade_ingressos = $_POST['quantidade_ingressos'];
         $preco_inteira = number_format($_POST['preco_inteira'], 2, '.', '');
+        $quantidade_ingressos_estudante = $_POST['quantidade_ingressos_estudante'];
 
         // Inserir o evento no banco de dados
         $inserir_evento = "INSERT INTO eventos (nome_evento, endereco, descricao, data_inicio_evento, data_final_evento, horario_inicial, horario_final, idusuario) VALUES ('$nome_evento', '$endereco', '$descricao', '$data_inicio_evento', '$data_final_evento', '$horario_inicial', '$horario_final', $idusuario)";
@@ -62,9 +63,9 @@
             $inserir_ingressos = "INSERT INTO ingresso (quantidade, valor, id_tipoingresso, idevento) VALUES ($quantidade_ingressos, $preco_inteira, 1, $id_evento)";
             mysqli_query($conexao, $inserir_ingressos);
 
-            // Calcular e inserir o preço da entrada estudante (50% do preço da entrada inteira)
+            // Calcular e inserir o preço e a quantidade de ingressos da entrada estudante
             $preco_estudante = $preco_inteira * 0.5;
-            $inserir_ingresso_estudante = "INSERT INTO ingresso (quantidade, valor, id_tipoingresso, idevento) VALUES ($quantidade_ingressos, $preco_estudante, 2, $id_evento)";
+            $inserir_ingresso_estudante = "INSERT INTO ingresso (quantidade, valor, id_tipoingresso, idevento) VALUES ($quantidade_ingressos_estudante, $preco_estudante, 2, $id_evento)";
             mysqli_query($conexao, $inserir_ingresso_estudante);
 
             echo "Evento criado com sucesso.";
@@ -101,8 +102,11 @@
         <label for="horario_final">Horário de Término do Evento:</label>
         <input type="time" id="horario_final" name="horario_final" required><br><br>
 
-        <label for="quantidade_ingressos">Quantidade de Entradas Inteiras e Estudantes Disponíveis:</label>
+        <label for="quantidade_ingressos">Quantidade de Entradas Inteiras Disponíveis:</label>
         <input type="number" id="quantidade_ingressos" name="quantidade_ingressos" required><br><br>
+
+        <label for="quantidade_ingressos_estudante">Quantidade de Entradas Estudantes Disponíveis:</label>
+        <input type="number" id="quantidade_ingressos_estudante" name="quantidade_ingressos_estudante" required><br><br>
 
         <label for="preco_inteira">Preço da Entrada Inteira:</label>
         <input type="number" id="preco_inteira" name="preco_inteira" step="0.01" required><br><br>

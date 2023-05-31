@@ -140,6 +140,8 @@ if (isset($_GET['id'])) {
 
         <label for="valor_<?php echo $ingresso['id_ingresso']; ?>">Valor:</label>
         <input type="text" id="valor_<?php echo $ingresso['id_ingresso']; ?>" name="valor[<?php echo $ingresso['id_ingresso']; ?>]" value="<?php echo $ingresso['valor']; ?>"><br><br>
+        <label for="valor_estudante_<?php echo $ingresso['id_ingresso']; ?>">Valor Estudante:</label>
+        <input type="text" id="valor_estudante_<?php echo $ingresso['id_ingresso']; ?>" name="valor_estudante[<?php echo $ingresso['id_ingresso']; ?>]" value="<?php echo $ingresso['valor']/2; ?>" readonly><br><br>
     <?php endforeach; ?>
 
     <input type="submit" value="Atualizar">
