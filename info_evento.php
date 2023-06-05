@@ -102,6 +102,16 @@
                             }
                             echo 'Preço: R$ ' . $dados_ingresso['valor'] . '<br>';
                             echo 'Quantidade: ' . $dados_ingresso['quantidade'] . '<br>';
+
+                            echo '<form action="processar_acao.php" method="POST">';
+                            echo '<input type="hidden" name="id_ingresso" value="' . $dados_ingresso['id_ingresso'] . '">';
+                            echo '<input type="hidden" name="id_evento" value="' . $id_evento . '">';
+                            echo '<label for="quantidade">Quantidade:</label>';
+                            echo '<input type="number" name="quantidade" min="1" max="' . $dados_ingresso['quantidade'] . '" value="1">';
+                            echo '<button type="submit" name="acao" value="adicionar_carrinho">Adicionar ao Carrinho</button>';
+                            echo '<button type="submit" name="acao" value="comprar">Comprar</button>';
+                            echo '</form>';
+
                             echo '</p>';
                         }
                     } else {
@@ -110,14 +120,16 @@
 
                     if ($tipo_usuario == 2 && verificarCriadorEvento($id_evento, $idusuario, $conexao)) { // Cadastro Empresarial
                         echo '<a href="editar_evento.php?id=' . $id_evento . '">Editar Evento</a>';
+                        echo '<a href="remover_evento.php?id=' . $id_evento . '">Excluir Evento</a>';
                     }
-
+                    echo '<a href="loja.php">Loja</a>';
                     echo '<a href="eventos.php">Voltar para a lista de eventos</a>';
+
                 } else {
                     echo '<p>Evento não encontrado.</p>';
                 }
             } else {
-                echo '<p>ID do evento não fornecido.</p>';
+                echo '<p>Evento não especificado.</p>';
             }
             ?>
         </div>
