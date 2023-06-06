@@ -69,7 +69,7 @@
                     echo '<div class="cartao_esquerdo">';
                     echo '<span>' . $row["nome_evento"] . '</span>';
                     echo '<h1>' . $row["nome_evento"] . '</h1>';
-                    echo '<h3>' . $row["descricao"] . '</h3>';
+                    echo '<h3>' . $row["palavra_chave"] . '</h3>';
                     echo '</div>';
                     echo '</div>';
                     echo '</a>';

@@ -31,15 +31,16 @@ if (isset($_GET['id'])) {
         $nomeEvento = $_POST['nome_evento'];
         $endereco = $_POST['endereco'];
         $descricao = $_POST['descricao'];
+        $palavraChave = $_POST['palavra_chave'];
         $dataInicioEvento = $_POST['data_inicio_evento'];
         $dataFinalEvento = $_POST['data_final_evento'];
         $horarioInicial = $_POST['horario_inicial'];
         $horarioFinal = $_POST['horario_final'];
 
         // Atualizar os dados do evento no banco de dados
-        $queryAtualizarEvento = "UPDATE eventos SET nome_evento = ?, endereco = ?, descricao = ?, data_inicio_evento = ?, data_final_evento = ?, horario_inicial = ?, horario_final = ? WHERE idevento = ?";
+        $queryAtualizarEvento = "UPDATE eventos SET nome_evento = ?, endereco = ?, descricao = ?, palavra_chave = ?, data_inicio_evento = ?, data_final_evento = ?, horario_inicial = ?, horario_final = ? WHERE idevento = ?";
         $stmtAtualizarEvento = $conexao->prepare($queryAtualizarEvento);
-        $stmtAtualizarEvento->bind_param('sssssisi', $nomeEvento, $endereco, $descricao, $dataInicioEvento, $dataFinalEvento, $horarioInicial, $horarioFinal, $idEvento);
+        $stmtAtualizarEvento->bind_param('ssssssssi', $nomeEvento, $endereco, $descricao, $palavraChave, $dataInicioEvento, $dataFinalEvento, $horarioInicial, $horarioFinal, $idEvento);
         $resultadoAtualizarEvento = $stmtAtualizarEvento->execute();
 
         // Verificar se a atualização do evento foi bem-sucedida
@@ -121,6 +122,9 @@ if (isset($_GET['id'])) {
 
     <label for="descricao">Descrição:</label><br>
     <textarea id="descricao" name="descricao"><?php echo $evento['descricao']; ?></textarea><br><br>
+
+    <label for="palavra_chave">Palavra-chave:</label>
+    <input type="text" id="palavra_chave" name="palavra_chave" value="<?php echo $evento['palavra_chave']; ?>"><br><br>
 
     <label for="data_inicio_evento">Data de Início do Evento:</label>
     <input type="date" id="data_inicio_evento" name="data_inicio_evento" value="<?php echo $evento['data_inicio_evento']; ?>"><br><br>

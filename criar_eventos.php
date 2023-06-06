@@ -45,7 +45,7 @@
         // Obter os dados do formulário
         $nome_evento = $_POST['nome_evento'];
         $endereco = $_POST['endereco'];
-        $descricao = $_POST['descricao'];
+        $palavra_chave = $_POST['palavra_chave'];
         $data_inicio_evento = $_POST['data_inicio_evento'];
         $data_final_evento = $_POST['data_final_evento'];
         $horario_inicial = $_POST['horario_inicial'];
@@ -55,7 +55,7 @@
         $quantidade_ingressos_estudante = $_POST['quantidade_ingressos_estudante'];
 
         // Inserir o evento no banco de dados
-        $inserir_evento = "INSERT INTO eventos (nome_evento, endereco, descricao, data_inicio_evento, data_final_evento, horario_inicial, horario_final, idusuario) VALUES ('$nome_evento', '$endereco', '$descricao', '$data_inicio_evento', '$data_final_evento', '$horario_inicial', '$horario_final', $idusuario)";
+        $inserir_evento = "INSERT INTO eventos (nome_evento, endereco, palavra_chave, data_inicio_evento, data_final_evento, horario_inicial, horario_final, idusuario) VALUES ('$nome_evento', '$endereco', '$palavra_chave', '$data_inicio_evento', '$data_final_evento', '$horario_inicial', '$horario_final', $idusuario)";
 
         if (mysqli_query($conexao, $inserir_evento)) {
             $id_evento = mysqli_insert_id($conexao);
@@ -88,8 +88,8 @@
         <label for="endereco">Endereço:</label>
         <input type="text" id="endereco" name="endereco" required><br><br>
 
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" required></textarea><br><br>
+        <label for="palavra_chave">Palavra-chave:</label>
+        <input type="text" id="palavra_chave" name="palavra_chave" required><br><br>
 
         <label for="data_inicio_evento">Data de Início do Evento:</label>
         <input type="date" id="data_inicio_evento" name="data_inicio_evento" required><br><br>
