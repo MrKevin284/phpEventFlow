@@ -34,6 +34,7 @@
         <nav class="botoes">
             <a href="eventos.php"><label>Eventos</label></a>
             <a href="criar_evento.php"><label>Criar Evento</label></a>
+            <a href="carrinho.php"><label>Carrinho</label></a>
             <a href="perfil.php"><label>Perfil</label></a>
             <a href="login.php"><label>Logout</label></a>
         </nav>

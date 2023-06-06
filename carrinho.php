@@ -1,37 +1,67 @@
-<?php
-session_start();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+</head>
+<body>
+    <div class="cabecalho">
+        <div class="logo_principal">
+            <img src="assets/imagens/logo_fundo_removido.png" alt="Logo EventFlow">
+        </div>
 
-// Verificar se o carrinho de compras já existe na sessão
-if (!isset($_SESSION['carrinho'])) {
-    $_SESSION['carrinho'] = array(); // Inicializar carrinho vazio
-}
+        <?php
+        // Incluir o arquivo de conexão com o banco de dados
+        require_once "conexao.php";
 
-// Verificar se foi enviado o formulário de adicionar ao carrinho
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_ingresso']) && isset($_POST['quantidade'])) {
-    $id_ingresso = $_POST['id_ingresso'];
-    $quantidade = $_POST['quantidade'];
+        // Verificar se o usuário está logado
+        session_start();
+        if (!isset($_SESSION['idusuario'])) {
+            header("location: login.php");
+            exit();
+        }
 
-    // Validar quantidade (certifique-se de adicionar suas próprias validações, se necessário)
-    if (!is_numeric($quantidade) || $quantidade <= 0) {
-        echo 'Quantidade inválida. Por favor, insira um valor válido.';
-        exit;
-    }
+        // Obter informações do usuário logado
+        $idusuario = $_SESSION['idusuario'];
+        $query_usuario = "SELECT nome, tipo_user FROM usuario WHERE idusuario = $idusuario";
+        $resultado_usuario = mysqli_query($conexao, $query_usuario);
+        $row_usuario = mysqli_fetch_assoc($resultado_usuario);
+        $nome_usuario = $row_usuario['nome'];
+        $tipo_usuario = $row_usuario['tipo_user'];
+        ?>
 
-    // Adicionar ingresso ao carrinho
-    $item = array(
-        'id_ingresso' => $id_ingresso,
-        'quantidade' => $quantidade
-    );
 
-    $_SESSION['carrinho'][] = $item;
-}
+        <nav class="botoes">
+            <?php if ($tipo_usuario == 1): ?>
+                <a href="eventos.php"><label>eventos</label></a>
+                <a href="meus_eventos.php"><label>Meus Eventos</label></a>
+                <a href="carrinho.php"><label>Carrinho</label></a>
+                <a href="perfil.php"><label>Perfil</label></a>
+                <a href="login.php"><label>Logout</label></a>
+            <?php elseif ($tipo_usuario == 2): ?>
+                <a href="eventos.php"><label>eventos</label></a>
+                <a href="perfil.php"><label>Perfil</label></a>
+                <a href="eventos_criados.php"><label>Eventos Criados</label></a>
+                <a href="criar_eventos.php"><label>Criar Evento</label></a>
+                <a href="login.php"><label>Logout</label></a>
+            <?php endif; ?>
+        </nav>
 
-// Exibir conteúdo do carrinho
-if (empty($_SESSION['carrinho'])) {
-    echo 'O carrinho está vazio.';
-} else {
-    foreach ($_SESSION['carrinho'] as $item) {
-        echo 'ID do ingresso: ' . $item['id_ingresso'] . ', Quantidade: ' . $item['quantidade'] . '<br>';
-    }
-}
-?>
+        <div class="nome_usuario">
+            <h2>Bem-vindo(a), <?php echo $nome_usuario; ?>!</h2>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        <?php if (empty($_SESSION['carrinho'])) : ?>
+            <p>O carrinho está vazio.</p>
+        <?php else : ?>
+            <?php foreach ($_SESSION['carrinho'] as $item) : ?>
+                <p>ID do ingresso: <?php echo $item['id_ingresso']; ?>, Quantidade: <?php echo $item['quantidade']; ?></p>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</body>
+</html>

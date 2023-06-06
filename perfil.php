@@ -54,6 +54,7 @@ $empresaUsuario = $dadosUsuario['empresa'];
                 <?php } elseif ($tipoUsuario == 2) { ?>
                     <a href="eventos.php"><label>Eventos</label></a>
                     <a href="eventos_criados.php"><label>Eventos Criados</label></a>
+                    <a href="carrinho.php"><label>Carrinho</label></a>
                     <a href="criar_eventos.php"><label>Criar Evento</label></a>
                     <a href="login.php"><label>Logout</label></a>
                 <?php } ?>
