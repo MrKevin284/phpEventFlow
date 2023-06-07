@@ -15,6 +15,7 @@
         <nav class="botoes">
             <a href="login.php"><label>Login</label></a>
             <a href="tipo_de_usuario.php"><label>Cadastro</label></a>
+            <a href="sobre_nos.php"><label>Sobre Nos</label></a>
         </nav>
 
         <div class="nome_usuario">
