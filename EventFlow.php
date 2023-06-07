@@ -36,7 +36,7 @@
             if (mysqli_num_rows($resultado) > 0) {
                 // Exibir os eventos
                 while ($row = mysqli_fetch_assoc($resultado)) {
-                    echo '<a href="info_evento.php?id=' . $row["idevento"] . '" class="caixa_evento">';
+
                     echo '<div class="cartao">';
                     echo '<div class="cartao_esquerdo">';
                     echo '<span>' . $row["nome_evento"] . '</span>';
