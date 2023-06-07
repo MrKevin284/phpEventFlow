@@ -13,7 +13,7 @@
 <a href="eventos_criados.php">Eventos Criados</a>
 <a href="carrinho.php">Carrinho</a>
 <a href="perfil.php">Perfil</a>
-<a href="login.php">Logout</a>
+<a href="EventFlow.php">Logout</a>
 
 <h1>Editar Evento</h1>
 

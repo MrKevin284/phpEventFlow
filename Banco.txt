@@ -30,6 +30,7 @@ CREATE TABLE eventos (
   idevento INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   nome_evento VARCHAR(250) NOT NULL,
   endereco VARCHAR(200) NOT NULL,
+  palavra_chave VARCHAR(50),
   descricao VARCHAR(500) NOT NULL,
   data_inicio_evento DATE NOT NULL,
   data_final_evento DATE NOT NULL,
