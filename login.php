@@ -28,7 +28,7 @@ session_start();
                     echo '<p class="erro">' . $_SESSION['login_erro'] . '</p>';
                     unset($_SESSION['login_erro']);
                 }
-                echo '<a href="esqueci_senha.php"><h2>Esqueci a senha</h2></a>';
+                echo '<a href="EventFlow.php"><h2>EventFlow</h2></a>';
                 echo '<a href="tipo_de_usuario.php"><h2>Criar Conta</h2></a>';
             ?>
         </div>
