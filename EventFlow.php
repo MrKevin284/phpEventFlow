@@ -22,7 +22,7 @@
         </div>
 
         <div class="caixa">
-            <h1 id="todos_os_eventos">Todos os Eventos</h1>
+            <h1 id="todos_os_eventos">Todos os Eventos:</h1>
 
             <?php
             // Incluir o arquivo de conexão com o banco de dados
@@ -36,10 +36,12 @@
             if (mysqli_num_rows($resultado) > 0) {
                 // Exibir os eventos
                 while ($row = mysqli_fetch_assoc($resultado)) {
-
+                    // Obter a data de início e fim do evento
+                    $dataInicio = date("d/m", strtotime($row["data_inicio_evento"]));
+                    $dataFim = date("d/m", strtotime($row["data_final_evento"]));
                     echo '<div class="cartao">';
                     echo '<div class="cartao_esquerdo">';
-                    echo '<span>' . $row["nome_evento"] . '</span>';
+                    echo '<span>' . $dataInicio . ' - ' . $dataFim . '</span>';
                     echo '<h1>' . $row["nome_evento"] . '</h1>';
                     echo '<h3>' . $row["palavra_chave"] . '</h3>';
                     echo '</div>';

@@ -44,7 +44,7 @@
         </div>
 
         <div class="eventos_criados">
-            <h1>Eventos Criados</h1>
+            <h1>Eventos Criados:</h1>
             <?php
             // Consultar os eventos criados pelo usuário
             $query_eventos_criados = "SELECT * FROM eventos WHERE idusuario = $idusuario";

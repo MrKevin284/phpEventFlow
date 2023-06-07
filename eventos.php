@@ -63,17 +63,21 @@
             // Verificar se existem eventos cadastrados
             if (mysqli_num_rows($resultado) > 0) {
                 // Exibir os eventos
-                while ($row = mysqli_fetch_assoc($resultado)) {
-                    echo '<a href="info_evento.php?id=' . $row["idevento"] . '" class="caixa_evento">';
-                    echo '<div class="cartao">';
-                    echo '<div class="cartao_esquerdo">';
-                    echo '<span>' . $row["nome_evento"] . '</span>';
-                    echo '<h1>' . $row["nome_evento"] . '</h1>';
-                    echo '<h3>' . $row["palavra_chave"] . '</h3>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</a>';
-                }
+                
+                    while ($row = mysqli_fetch_assoc($resultado)) {
+                        // Obter a data de início e fim do evento
+                        $dataInicio = date("d/m", strtotime($row["data_inicio_evento"]));
+                        $dataFim = date("d/m", strtotime($row["data_final_evento"]));
+                        echo '<a href="info_evento.php?id=' . $row["idevento"] . '" class="caixa_evento">';
+                        echo '<div class="cartao">';
+                        echo '<div class="cartao_esquerdo">';
+                        echo '<span>' . $dataInicio . ' - ' . $dataFim . '</span>';
+                        echo '<h1>' . $row["nome_evento"] . '</h1>';
+                        echo '<h3>' . $row["palavra_chave"] . '</h3>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</a>';
+                    }
             } else {
                 echo '<p>Nenhum evento encontrado.</p>';
             }
