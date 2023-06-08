@@ -58,9 +58,18 @@
         <?php if (empty($_SESSION['carrinho'])) : ?>
             <p>O carrinho está vazio.</p>
         <?php else : ?>
-            <?php foreach ($_SESSION['carrinho'] as $item) : ?>
-                <p>ID do ingresso: <?php echo $item['id_ingresso']; ?>, Quantidade: <?php echo $item['quantidade']; ?></p>
-            <?php endforeach; ?>
+            <table>
+                <tr>
+                    <th>ID do ingresso</th>
+                    <th>Quantidade</th>
+                </tr>
+                <?php foreach ($_SESSION['carrinho'] as $item) : ?>
+                    <tr>
+                        <td><?php echo $item['id_ingresso']; ?></td>
+                        <td><?php echo $item['quantidade']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
     </div>
 </body>

@@ -17,6 +17,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Adicionar ao carrinho (lógica de adicionar ao carrinho aqui)
 
+        // Iniciar a sessão, se ainda não estiver iniciada
+        session_start();
+
+        // Verificar se o carrinho já existe na sessão
+        if (!isset($_SESSION['carrinho'])) {
+            $_SESSION['carrinho'] = array();
+        }
+
+        // Verificar se o item já existe no carrinho
+        $item_existe = false;
+        foreach ($_SESSION['carrinho'] as $key => $item) {
+            if ($item['id_ingresso'] == $id_ingresso) {
+                // Atualizar a quantidade
+                $_SESSION['carrinho'][$key]['quantidade'] += $quantidade;
+                $item_existe = true;
+                break;
+            }
+        }
+
+        // Se o item não existe, adicionar ao carrinho
+        if (!$item_existe) {
+            $novo_item = array(
+                'id_ingresso' => $id_ingresso,
+                'quantidade' => $quantidade
+            );
+            $_SESSION['carrinho'][] = $novo_item;
+        }
+
         // Redirecionar para o carrinho
         header("Location: carrinho.php");
         exit();
