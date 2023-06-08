@@ -154,8 +154,5 @@ if (isset($_GET['id'])) {
 
 <br>
 
-<form method="POST">
-    <input type="submit" value="Excluir" onclick="return confirm('Tem certeza de que deseja excluir este evento?');">
-</form>
 </body>
 </html>
