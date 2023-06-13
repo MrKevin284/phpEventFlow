@@ -7,10 +7,20 @@
     <title>Loja</title>
 </head>
 <body>
-    <div class="cabecalho">
-        <div class="logo_principal">
+    <div class="cabecalho_loja">
+
+        <div class="logo_loja">
             <img src="assets/imagens/logo_fundo_removido.png" alt="Logo EventFlow">
         </div>
+
+        <center>
+            <div class="nome_loja">
+                <h1>Loja</h1>
+            </div>
+            <?php
+            echo '<div class="botao_cadastro_produto"><a href="cadastro_produto.php">Cadastro de Produto</a></div>';
+            ?>
+        </center>
 
         <?php
         // Incluir o arquivo de conexão com o banco de dados
@@ -32,16 +42,15 @@
         $tipo_usuario = $row_usuario['tipo_user'];
         ?>
 
-
-        <nav class="botoes">
+        <nav class="botoes_loja">
             <?php if ($tipo_usuario == 1): ?>
-                <a href="eventos.php"><label>eventos</label></a>
-                <a href="meus_eventos.php"><label>Meus Eventos</label></a>
+                <a href="eventos.php"><label>Eventos</label></a>
+                <a href="eventos_criados.php"><label>Meus Eventos</label></a>
                 <a href="carrinho.php"><label>Carrinho</label></a>
                 <a href="perfil.php"><label>Perfil</label></a>
                 <a href="EventFlow.php"><label>Logout</label></a>
             <?php elseif ($tipo_usuario == 2): ?>
-                <a href="eventos.php"><label>eventos</label></a>
+                <a href="eventos.php"><label>Eventos</label></a>
                 <a href="perfil.php"><label>Perfil</label></a>
                 <a href="eventos_criados.php"><label>Eventos Criados</label></a>
                 <a href="carrinho.php"><label>Carrinho</label></a>
@@ -50,36 +59,39 @@
             <?php endif; ?>
         </nav>
 
-        <div class="nome_usuario">
-            <h2>Bem-vindo(a), <?php echo $nome_usuario; ?>!</h2>
-        </div>
+        <div class="container_loja">
+            
+                <?php
+                // Incluir o arquivo de conexão com o banco de dados
+                include 'conexao.php';
 
-        <div class="caixa">
-            <h1 id="loja">Loja</h1>
+                // Consultar os produtos da tabela iten_loja
+                $query = "SELECT * FROM iten_loja";
+                $result = mysqli_query($conexao, $query);
 
-            <?php
-            // Consultar os produtos na loja
-            $consulta = "SELECT * FROM iten_loja";
-            $resultado = mysqli_query($conexao, $consulta);
-
-            // Verificar se existem produtos cadastrados
-            if (mysqli_num_rows($resultado) > 0) {
-                // Exibir os produtos
-                while ($row = mysqli_fetch_assoc($resultado)) {
-                    echo '<div class="produto">';
-                    echo '<h2>' . $row["nome_produto"] . '</h2>';
-                    echo '<p>' . $row["descricao"] . '</p>';
-                    echo '<p>R$' . $row["preco"] . '</p>';
-                    echo '<button class="adicionar_carrinho">Adicionar ao Carrinho</button>';
-                    echo '</div>';
+                // Verificar se há produtos na tabela
+                if (mysqli_num_rows($result) > 0) {
+                    // Exibir os produtos
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<div class="caixa_loja">';
+                        echo '<h2>' . $row['nome'] . '</h2>';
+                        echo '<p>' . $row['descricao'] . '</p>';
+                        echo '<p>Quantidade: ' . $row['quantidade'] . '</p>';
+                        echo '<p>Valor: R$ ' . $row['valor'] . '</p>';
+                        echo '<form action="carrinho.php" method="POST">';
+                        echo '<input type="hidden" name="iditem_loja" value="' . $row['iditem_loja'] . '">';
+                        echo '<input type="submit" value="Adicionar ao carrinho">';
+                        echo '</form>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p id="nenhum_produto_disponivel_na_loja">Nenhum produto disponível na loja.</p>';
                 }
-            } else {
-                echo '<p>Nenhum produto encontrado.</p>';
-            }
 
-            // Fechar a conexão com o banco de dados
-            mysqli_close($conexao);
-            ?>
+                // Fechar a conexão com o banco de dados
+                mysqli_close($conexao);
+                ?>
+            <p></p>
         </div>
     </div>
 </body>

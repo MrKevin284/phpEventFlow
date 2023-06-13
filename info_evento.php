@@ -107,10 +107,15 @@
                         echo '<form action="processar_acao.php" method="POST">';
                         echo '<input type="hidden" name="id_ingresso" value="' . $dados_ingresso['id_ingresso'] . '">';
                         echo '<input type="hidden" name="id_evento" value="' . $id_evento . '">';
-                        echo '<label for="quantidade">Quantidade:</label>';
-                        echo '<input type="number" name="quantidade" min="1" max="' . $dados_ingresso['quantidade'] . '" value="1">';
-                        echo '<button type="submit" name="acao" value="adicionar_carrinho">Adicionar ao Carrinho</button>';
-                        echo '<button type="submit" name="acao" value="comprar">Comprar</button>';
+                         // Verificar se o usuário é o criador do evento
+                        if ($tipo_usuario == 2 && verificarCriadorEvento($id_evento, $idusuario, $conexao)) {
+                            echo '<p> </p>';
+                        } else {
+                            echo '<label for="quantidade">Quantidade:</label>';
+                            echo '<input type="number" name="quantidade" min="1" max="' . $dados_ingresso['quantidade'] . '" value="1">';
+                            echo '<button type="submit" name="acao" value="adicionar_carrinho">Adicionar ao Carrinho</button>';
+                            echo '<button type="submit" name="acao" value="comprar">Comprar</button>';
+                        }
                         echo '</form>';
 
                         echo '</p>';
